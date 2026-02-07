@@ -1,0 +1,21 @@
+# secrets
+.env
+
+# python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# virtual env
+venv/
+.venv/
+
+# mac
+.DS_Store
+
+# editor
+.vscode/
+.idea/
+
+# logs
+*.log
