@@ -12,4 +12,4 @@ def normalize_name(name: str) -> str:
 
 # get roaster's list
 def get_roasters():
-    return repo.list_roasters()
+    return repo.get_roasters()

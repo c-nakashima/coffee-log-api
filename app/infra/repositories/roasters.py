@@ -4,7 +4,7 @@ from app.infra.db.connection import get_conn
 # Repository layer: talk to the database with SQL
 
 
-def list_roasters():
+def get_roasters():
     """
     fetch all roasters from the roasters table
     Returns a list og rows (dicts if RealDictCursor is used)
