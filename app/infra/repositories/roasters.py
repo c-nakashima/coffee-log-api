@@ -1,6 +1,7 @@
 # import function to connect db
 from app.infra.db.connection import get_conn
 
+
 # Repository layer: talk to the database with SQL
 
 
@@ -19,3 +20,32 @@ def get_roasters():
             cur.execute("SELECT * FROM roasters ORDER BY name ASC;")
             # return dictionary
             return cur.fetchall()
+
+
+def get_by_name_normalized(name_normalized: str):
+    with get_conn() as conn:
+        with conn.cursor() as cur:
+            cur.execute("""
+                SELECT id, name, name_normalized
+                FROM roasters
+                WHERE name_normalized = %s
+                LIMIT 1;
+            """, (name_normalized,))
+
+            return cur.fetchone()
+
+
+def create_roaster(name: str, name_normalized: str):
+    with get_conn() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                INSERT INTO roasters (name, name_normalized)
+                VALUES (%s, %s)
+                RETURNING *;
+                """,
+                (name, name_normalized),
+            )
+            row = cur.fetchone()
+            conn.commit()
+            return row
